@@ -1,0 +1,43 @@
+import asyncio
+from aiogram import Bot, Dispatcher
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from datetime import time
+
+BOT_TOKEN = "ТОКЕН_ОТ_BOTFATHER"
+
+# ID группы (ВАЖНО: с минусом)
+GROUP_ID = -1001234567890
+
+# Время отправки (24-часовой формат)
+SEND_TIME = time(hour=10, minute=0)  # 10:00 утра
+
+bot = Bot(token=BOT_TOKEN)
+dp = Dispatcher()
+
+
+async def send_congrats():
+    await bot.send_message(
+        GROUP_ID,
+        "🎉 Поздравляем с прошедшим днём рождения!\n"
+        "22 октября — отличный повод напоминать о себе каждый день 😄"
+    )
+
+
+async def main():
+    scheduler = AsyncIOScheduler(timezone="Europe/Moscow")
+
+    # Запуск каждый день в заданное время
+    scheduler.add_job(
+        send_congrats,
+        trigger="cron",
+        hour=SEND_TIME.hour,
+        minute=SEND_TIME.minute
+    )
+
+    scheduler.start()
+
+    await dp.start_polling(bot)
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
