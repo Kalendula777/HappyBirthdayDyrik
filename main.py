@@ -2,17 +2,23 @@ import asyncio
 from aiogram import Bot, Dispatcher
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from datetime import time
+import os
 
-BOT_TOKEN = "ТОКЕН_ОТ_BOTFATHER"
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 # ID группы (ВАЖНО: с минусом)
-GROUP_ID = -1001234567890
+GROUP_ID = -1002054071843
 
 # Время отправки (24-часовой формат)
-SEND_TIME = time(hour=10, minute=0)  # 10:00 утра
+SEND_TIME = time(hour=15, minute=0)  # 10:00 утра
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
+
+
+@dp.message()
+async def get_chat_id(message):
+    print(message.chat.id)
 
 
 async def send_congrats():
