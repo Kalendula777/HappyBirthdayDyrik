@@ -10,7 +10,7 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 GROUP_ID = -1002054071843
 
 # Время отправки (24-часовой формат)
-SEND_TIME = time(hour=14, minute=13)  # 10:00 утра
+SEND_TIME = time(hour=14, minute=16)  # 10:00 утра
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
